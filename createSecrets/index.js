@@ -1,5 +1,5 @@
 const fsp = require('fs').promises;
-const { SecretsManager } = require('aws-sdk')
+const { SecretsManager } = require('@aws-sdk/client-secrets-manager');
 const credentials = require('./credentials')();
 const { accessKeyId, secretAccessKey, sessionToken } = credentials;
 console.log({ accessKeyId, secretAccessKey, sessionToken, credentials })

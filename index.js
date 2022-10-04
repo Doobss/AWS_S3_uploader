@@ -1,12 +1,13 @@
 const fsp = require('fs').promises;
-const { SecretsManager, S3 } = require('aws-sdk');
+const { S3Client } = require('@aws-sdk/client-s3')
+const { SecretsManager } = require('@aws-sdk/client-secrets-manager');
 const { secretMetaFileName } = require('./createSecrets/index')
 
 // NOTE: no credentials entered because this should be called from within an
 //       AWS instance with the proper IAM permissions. If so our credentials are
 //       supplied by the instance itself
 const manager = new SecretsManager();
-const s3Client = new S3();
+const s3Client = new S3Client();
 
 
 

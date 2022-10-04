@@ -10,7 +10,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "aws-sdk": "^2.1228.0",
+    "@aws-sdk/client-s3": "^3.183.0",
+    "@aws-sdk/client-secrets-manager": "^3.183.0",
     "install": "^0.13.0",
     "npm": "^8.19.2"
   }

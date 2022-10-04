@@ -1,4 +1,3 @@
-const { Credentials } = require('aws-sdk')
 const accessKeyId = ``,
 const secretAccessKey = ``
 const sessionToken = ``,
@@ -20,6 +19,6 @@ const credentials = Object.freeze({
 })
 
 module.exports = () => {
-  if (credentialCheck()) return new Credentials(credentials);
+  if (credentialCheck()) return credentials
   else return null;
 };
