@@ -43,11 +43,11 @@ const getSecrets = async (secretMetaData) => {
       throw new Error(`SecretId is not defined, the manager will not find the secret data.`)
     }
   } catch ( error ) {
-     const { message } = error;
+    const { message } = error;
     if ( managerError ) {
-      console.log(`ERROR getSecrets: `, { message, secretMetaData, managerError, error });
+      console.log(`ERROR getSecrets: `, { message, managerError, secretMetaData });
     } else {
-      console.log(`ERROR getSecrets: `, { message, secretMetaData, error });
+      console.log(`ERROR getSecrets: `, { message, secretMetaData });
     }
     return {};
   }
@@ -69,7 +69,6 @@ const getSecretMetaData = async () => {
       const { ARN, Name, VersionId } = parsedMeta;
       const secretManagerMeta = {
         SecretId: ARN, /* required */
-        VersionId: VersionId,
         ...parsedMeta,
       }
       return secretManagerMeta
