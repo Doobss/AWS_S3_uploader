@@ -29,23 +29,27 @@ const uploadFiles = async (files) => {
 
 
 const getSecrets = async (secretMetaData) => {
-  // secretMetaData = secretMetaData || await getSecretMetaData();
-  let getSecretError;
+  // secretMetaData = secretMetaData || await getSecretMetaData(); // not sure if this works lol
+  let managerError;
   try {
     if ( secretMetaData.SecretId ) {
       const { error, data } = await manager.getSecretValue(secretMetaData)
       if ( !error ) {
         return data;
       } else {
-        getSecretError = error;
-        throw new Error(`Error in data retrival by the manager.`)
+        managerError = error;
+        throw new Error(`Error in data retrival by the manager.  `)
       }
     } else {
       throw new Error(`SecretId is not defined, the manager will not find the secret data.`)
     }
   } catch ( error ) {
-    getSecretError = error;
-    console.log(`getSecrets ERROR: `, { secretMetaData, getSecretError });
+    const { message } = error;
+    if ( managerError ) {
+      console.log(`ERROR getSecrets: `, { message, managerError, secretMetaData });
+    } else {
+      console.log(`ERROR getSecrets: `, { message, secretMetaData });
+    }
     return {};
   }
 }
@@ -66,7 +70,6 @@ const getSecretMetaData = async () => {
       const { ARN, Name, VersionId } = parsedMeta;
       const secretManagerMeta = {
         SecretId: ARN, /* required */
-        VersionId: VersionId,
         ...parsedMeta,
       }
       return secretManagerMeta

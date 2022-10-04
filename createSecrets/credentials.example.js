@@ -1,6 +1,6 @@
-const accessKeyId = ``,
+const accessKeyId = ``
 const secretAccessKey = ``
-const sessionToken = ``,
+const sessionToken = ``
 
 const credentialCheck = () => {
   if ( !((accessKeyId && secretAccessKey && sessionToken) || (accessKeyId.length && secretAccessKey.length && sessionToken.length)) ) {
