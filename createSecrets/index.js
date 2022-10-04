@@ -3,8 +3,9 @@ const { SecretsManager } = require('aws-sdk')
 const credentials = require('./credentials')();
 const { accessKeyId, secretAccessKey, sessionToken } = credentials;
 console.log({ accessKeyId, secretAccessKey, sessionToken, credentials })
-
 const manager = new SecretsManager(credentials);
+
+const secretMetaFileName = `secretMeta.json`
 
 const newSecrectKeyValues = {
   S3_BUCKET_NAME: `example secret`,
@@ -28,7 +29,7 @@ const createNewSecret = (secretParams = createSecretParams ) => {
       const { ARN, Name, VersionId } = awsRes;
       if ( (ARN && Name && VersionId ) ) {
         const written = JSON.stringify({ ARN, Name, VersionId });
-        fsp.writeFile(written,  'secretMeta.json')
+        fsp.writeFile(written,  secretMetaFileName)
           .then(writeFileRes => console.log(`SECRET CREATED AND STORED`, { written, writeFileRes }))
           .catch(writeFileError => console.log(`SECRET CREATED BUT NOT STORED`, { written, writeFileError }))
       } else {
@@ -38,8 +39,7 @@ const createNewSecret = (secretParams = createSecretParams ) => {
     .catch(awsErr =>  console.log('Error ',  { awsRes }))
 }
 
-
-module.exports = createNewSecret;
+module.exports = { secretMetaFileName, createNewSecret };
 
 
 
